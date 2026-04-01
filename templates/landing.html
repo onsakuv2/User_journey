@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Landing Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 50px; text-align: center; }
+        .form-container { display: none; width: 300px; margin: 20px auto; text-align: left; padding: 20px; border: 1px solid #ccc; }
+        .active { display: block; }
+        input { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;}
+        button { padding: 10px 20px; cursor: pointer; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Task Manager</h1>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('error')) document.write("<p class='error'>" + urlParams.get('error') + "</p>");
+        if(urlParams.has('msg')) document.write("<p class='success'>" + urlParams.get('msg') + "</p>");
+    </script>
+
+    <div>
+        <button onclick="showForm('loginForm')">Login</button>
+        <button onclick="showForm('registerForm')">Register</button>
+    </div>
+
+    <div id="loginForm" class="form-container active">
+        <h3>Login</h3>
+        <form action="/login" method="post">
+            <label>Email (Username):</label>
+            <input type="email" name="email" required>
+            <label>Password:</label>
+            <input type="password" name="password" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="registerForm" class="form-container">
+        <h3>Register</h3>
+        <form action="/register" method="post">
+            <label>Username:</label>
+            <input type="text" name="username" required>
+            <label>Email:</label>
+            <input type="email" name="email" required>
+            <label>Password:</label>
+            <input type="password" name="password" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function showForm(formId) {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('registerForm').classList.remove('active');
+            document.getElementById(formId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

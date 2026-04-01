@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Screen</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .btn { padding: 8px 15px; text-decoration: none; background: #007BFF; color: white; border-radius: 4px; border:none; cursor: pointer; }
+        .btn-danger { background: #dc3545; }
+        .btn-edit { background: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, {{ user.username }}!</h2>
+        <div>
+            <a href="/task" class="btn">Add New Task</a>
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+
+    <h3>Your Tasks</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.category }}</td>
+                <td>{{ task.start_date }}</td>
+                <td>{{ task.end_date }}</td>
+                <td>
+                    <a href="/task?task_id={{ task.id }}" class="btn btn-edit">✏️ Edit</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6">No tasks found. Create one!</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
